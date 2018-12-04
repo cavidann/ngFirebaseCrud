@@ -1,0 +1,94 @@
+<div class="container">
+  <h3>New User Reactive Forrm</h3>
+  <form [formGroup]="userForm" (ngSubmit)="submit()">
+    <div class="form-group">
+      <label for="name">name</label>
+      <input type="text" formControlName="name" class="form-control">
+      <div class="alert alert-danger" *ngIf="name.touched && name.invalid">
+        <p *ngIf="name?.errors['required']">Name Is required</p>
+        <p *ngIf="name?.errors['minlength']">Name must be at least {{ name?.errors['minlength'].requiredLength }} char long</p>
+        <p *ngIf="name?.errors['pattern']">Name can only be John Doe</p>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="username">username</label>
+      <input type="text" formControlName="username" class="form-control">
+      <p *ngIf="username.pending">Checking for Uniqueness from Server Values...</p>
+      <div class="alert alert-danger" *ngIf="username.touched && username.invalid">
+          <!-- <p *ngIf="username?.errors['unique']">Username must be unique!</p> -->
+          <p *ngIf="username?.errors['asyncUnique']">Username must be unique!</p>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email">email</label>
+      <input type="text" formControlName="email" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="phone">phone</label>
+      <input type="text" formControlName="phone" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="website">website</label>
+      <input type="text" formControlName="website" class="form-control">
+    </div>
+
+    <fieldset formGroupName="address">
+      <legend>Address</legend>
+      <div class="form-group">
+        <label for="street">street</label>
+        <input type="text" formControlName="street" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="suite">suite</label>
+        <input type="text" formControlName="suite" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="city">city</label>
+        <input type="text" formControlName="city" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="zipcode">zipcode</label>
+        <input type="text" formControlName="zipcode" class="form-control">
+      </div>
+
+      <fieldset formGroupName="geo">
+        <legend>Geo</legend>
+        <div class="form-group">
+          <label for="lat">lat</label>
+          <input type="text" formControlName="lat" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="lang">lang</label>
+          <input type="text" formControlName="lang" class="form-control">
+        </div>
+      </fieldset>
+    </fieldset>
+
+    <fieldset formGroupName="company">
+      <legend>Company</legend>
+      <div class="form-group">
+        <label for="name">name</label>
+        <input type="text" formControlName="name" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="catchPrase">catchPrase</label>
+        <input type="text" formControlName="catchPrase" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="bs">bs</label>
+        <input type="text" formControlName="bs" class="form-control">
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Hobbies | <span class="glyphicon glyphicon-plus" (click)="addHobby()"></span></legend>
+      <div class="input-group" *ngFor="let hobbyControll of userForm.get('hobbies')['controls']; let i = index">
+        <input type="text" class="form-control" [formControlName]="i" placeholder="Hobby">
+        <span class="input-group-addon glyphicon glyphicon-trash" id="basic-addon2" (click)="deleteHobby(i)"></span>
+      </div>
+    </fieldset>
+
+    <button class="btn btn-primary" type="submit">submit</button>
+    <button class="btn btn-warning" type="submit" (click)="resetForm()">Reset</button>
+  </form>
+</div>

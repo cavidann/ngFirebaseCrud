@@ -1,0 +1,173 @@
+<div class="container">
+  <div class="col-md-5">
+    <h3>New User Form</h3>
+    <form #userForm="ngForm" (ngSubmit)="submit(userForm)">
+      <div class="form-group">
+        <label for="name">name</label>
+        <input
+          required
+          type="text"
+          name="name"
+          class="form-control"
+          ngModel
+          #name="ngModel"
+        />
+        <div *ngIf="name.touched && name.invalid" class="alert alert-danger">
+          <p>Fill name</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="username">username</label>
+        <input
+          required
+          type="text"
+          name="username"
+          class="form-control"
+          ngModel
+          #username="ngModel"
+        />
+        <div
+          *ngIf="username.touched && username.invalid"
+          class="alert alert-danger"
+        >
+          <p>Fill username</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">email</label>
+        <input
+          required
+          type="text"
+          name="email"
+          class="form-control"
+          ngModel
+          #email="ngModel"
+        />
+        <div *ngIf="email.touched && email.invalid" class="alert alert-danger">
+          <p>Fill email</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="phone">phone</label>
+        <input
+          required
+          type="text"
+          name="phone"
+          class="form-control"
+          ngModel
+          #phone="ngModel"
+        />
+        <div *ngIf="phone.touched && phone.invalid" class="alert alert-danger">
+          <p>Fill phone</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="website">website</label>
+        <input
+          required
+          type="text"
+          name="website"
+          class="form-control"
+          ngModel
+          #website="ngModel"
+        />
+        <div
+          *ngIf="website.touched && website.invalid"
+          class="alert alert-danger"
+        >
+          <p>Fill website</p>
+        </div>
+      </div>
+      <div ngModelGroup="address">
+        <div class="form-group">
+          <label for="street">street</label>
+          <input type="text" name="street" class="form-control" ngModel />
+        </div>
+        <div class="form-group">
+          <label for="suite">suite</label>
+          <input type="text" name="suite" class="form-control" ngModel />
+        </div>
+        <div class="form-group">
+          <label for="city">city</label>
+          <input type="text" name="city" class="form-control" ngModel />
+        </div>
+        <div class="form-group">
+          <label for="zipcode">zipcode</label>
+          <input type="text" name="zipcode" class="form-control" ngModel />
+        </div>
+      </div>
+      <div ngModelGroup="company">
+        <div class="form-group">
+          <label for="name">name</label>
+          <input type="text" name="name" class="form-control" ngModel />
+        </div>
+        <div class="form-group">
+          <label for="catchPhrase">catchPhrase</label>
+          <input type="text" name="catchPhrase" class="form-control" ngModel />
+        </div>
+        <div class="form-group">
+          <label for="bs">bs</label>
+          <input type="text" name="bs" class="form-control" ngModel />
+        </div>
+        <div ngModelGroup="geo">
+          <div class="form-group">
+            <label for="lat">lat</label>
+            <input type="text" name="lat" class="form-control" ngModel />
+          </div>
+          <div class="form-group">
+            <label for="lng">lng</label>
+            <input type="text" name="lng" class="form-control" ngModel />
+          </div>
+        </div>
+      </div>
+      <div class="radio">
+        <label *ngFor="let gender of genders" for="gender">
+          <input name="gender" [value]="gender" type="radio" ngModel />
+          {{ gender }} <br />
+        </label>
+      </div>
+      <div class="form-group">
+        <label for="communicationMode">Communication options</label>
+        <select name="communicationMode" class="form-control" ngModel>
+          <option value=""></option>
+          <option *ngFor="let mode of communicationModes" value="mode">{{
+            mode
+          }}</option>
+        </select>
+      </div>
+      <div class="checkbox">
+        <label for="agreement">
+          <input name="agreement" ngModel type="checkbox" /> I agree Terms and
+          Conditions <br />
+        </label>
+      </div>
+      <hr />
+      <pre>
+        {{ userForm.value | json }}
+      </pre>
+      <hr />
+      <button class="btn btn-primary" type="submit" [disabled]="userForm.invalid">
+        submit
+      </button>
+      <button class="btn btn-primary" type="button" (click)="updateUser(userForm)">
+          update user
+      </button>
+      <button class="btn btn-primary" type="button" (click)="deleteUser()">
+          delete user
+      </button>
+    </form>
+  </div>
+  <div class="col-md-7">
+    <pre>
+      {{ userList | json }}
+    </pre>
+    <button class="btn btn-primary" type="button" (click)="getUsers()">Get Users</button>
+  </div>
+</div>
+
+<!-- <ul>
+  <li>{{userList}}</li>
+<li *ngFor="let user of users">
+     {{ user.name | json }}
+  </li>
+</ul> -->
